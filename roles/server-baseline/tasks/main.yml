@@ -1,7 +1,13 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
 - name: Install base packages
   apt:
     name:
       - curl
       - vim
       - git
+      - htop
     state: present
