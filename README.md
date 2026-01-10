@@ -1,0 +1,1 @@
+# Ansible-role-based-automation
