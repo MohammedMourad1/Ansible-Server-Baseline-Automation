@@ -11,3 +11,8 @@
 - name: Set timezone
   timezone:
     name: "{{ timezone }}"
+
+- name: Verify base packages are installed
+  command: which {{ item }}
+  loop: "{{ base_packages }}"
+  changed_when: false
