@@ -1,2 +1,7 @@
 ---
-# defaults file for server-baseline
+base_packages:
+  - curl
+  - vim
+  - git
+  - htop
+timezone: UTC
