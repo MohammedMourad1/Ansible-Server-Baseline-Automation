@@ -29,7 +29,26 @@ Instead of writing monolithic playbooks, this project uses **Ansible Roles** to:
 - Centralized server baseline configuration
 - Variable-driven design for flexibility
 - Idempotent execution using Ansible best practices
+- Secure access model using a dedicated Ansible user
 - Ready to be extended with additional roles (security, monitoring, hardening)
+
+---
+
+## Security Design: Dedicated Ansible User
+
+For security and best practices, this project is designed to use a **dedicated system user named `ansible`** on target hosts.
+
+This approach provides several advantages:
+- No root login over SSH
+- No credentials stored in the inventory file
+- Clear separation between automation access and human users
+- Safer and more auditable automation access
+
+The `ansible` user is expected to:
+- Authenticate using SSH key-based authentication
+- Have passwordless sudo permissions for required administrative tasks
+
+By using this model, the inventory file remains clean and free of sensitive credentials.
 
 ---
 
@@ -73,9 +92,10 @@ Detailed documentation for this role is available inside:
 Before running this project, ensure the following requirements are met:
 
 - Ansible installed on the control machine
-- SSH access to target servers
+- SSH key-based access to target servers
 - Python available on target hosts
-- A properly configured inventory file
+- A configured `ansible` user on target machines
+- A properly defined inventory file
 
 ---
 
@@ -96,10 +116,11 @@ Clone the project to your local machine:
 
 Edit or create an inventory file to define your target hosts.
 
+The inventory does **not** contain usernames or passwords.  
+Ansible connects using the dedicated `ansible` user and SSH keys.
+
 Example structure:
 - inventory/hosts
-
-Ensure SSH access is properly configured for the target servers.
 
 ---
 
@@ -116,9 +137,9 @@ Override variables if needed to match your environment.
 
 Execute the main playbook using Ansible:
 
-- ansible-playbook site.yml -i inventory/hosts
+- ansible-playbook site.yml -i inventory/hosts --become
 
-Ansible will connect to the target hosts and apply the defined roles.
+Ansible will connect to the target hosts using the `ansible` user and apply the defined roles.
 
 ---
 
@@ -136,7 +157,7 @@ After execution, you can verify the results by:
 This project can be used for:
 - Preparing newly provisioned servers
 - Enforcing consistent configurations across environments
-- Learning and demonstrating Ansible role-based automation
+- Demonstrating secure Ansible automation practices
 - Serving as a foundation for larger DevOps automation projects
 
 ---
@@ -161,4 +182,3 @@ DevOps Engineer
 ## License
 
 MIT
-
