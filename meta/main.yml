@@ -1,17 +1,21 @@
----
 galaxy_info:
-  role_name: server-baseline
-  author: Mohammed Mourad
-  description: >
-    Base server configuration role that installs essential packages,
-    sets system timezone, and validates baseline readiness.
+  author: Mohammed Ahmed Mourad
+  description: Linux server baseline role for secure and consistent configuration
+  namespace: MohammedMourad1
+  role_name: server_baseline
   license: MIT
-  min_ansible_version: "2.12"
+  min_ansible_version: "2.9"
 
   platforms:
     - name: Ubuntu
       versions:
+        - focal
         - jammy
 
-dependencies: []
+  galaxy_tags:
+    - server
+    - baseline
+    - linux
+    - security
 
+dependencies: []
